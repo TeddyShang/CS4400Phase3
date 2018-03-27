@@ -60,7 +60,7 @@
         </div>
         <div class="form-group row">
             <label for="city"class="col-sm-2 col-form-label">City*:</label>
-            <div class=col-md-4 mb-3">
+            <div class="col-md-4 mb-3">
                 <input type="text" required class="form-control" id="city" placeholder="City Name">
                 <small id="cityHelp" class="form-text text-muted">Enter the city of your property</small>
             </div>
@@ -82,7 +82,7 @@
         <div class ="form-group row">
             <label class="col-sm-2 col-form-label">Property Type*:</label>
             <div class="col-md-4 mb-3">
-            <select class="custom-select custom-select mb-3" required>
+            <select class="custom-select custom-select mb-3" required onchange="dontshow(this)" id = "property">
                 <option value="">Open this select menu</option>
                 <option value="1">Orchard</option>
                 <option value="2">Farm</option>
@@ -92,12 +92,12 @@
         </div>
         <div class ="form-group row">
             <label class="col-sm-2 col-form-label">Animal*:</label>
-            <div class="col-md-4 mb-3">
+            <div class="col-md-4 mb-3" id = "animal">
                 <select class="custom-select custom-select mb-3" required>
                     <option value="">Open this select menu</option>
-                    <option value="1">Orchard</option>
-                    <option value="2">Farm</option>
-                    <option value="3">Garden</option>
+                    <option value="1">One</option>
+                    <option value="2">Two</option>
+                    <option value="3">Three</option>
                 </select>
             </div>
         </div>
@@ -161,11 +161,20 @@ form.classList.add('was-validated');
 </script>
 <script>
     function check(input) {
+    alert("fuckme");
         if (input.value != document.getElementById('inputPassword').value) {
             input.setCustomValidity('Password Must be Matching.');
         } else {
             // input is valid -- reset the error message
             input.setCustomValidity('');
+        }
+    }
+    function dontshow(sel) {
+        var x = document.getElementById('animal');
+        if (sel.value != "2") {
+            x.style.display = "none";
+        } else {
+            x.style.display = "block";
         }
     }
 </script>
