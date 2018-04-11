@@ -15,11 +15,11 @@
 <div class ="text-center">
     <h1>ATL Gardens, Farms, and Orchards</h1>
     <h2>Login to your account:</h2>
-<form class="needs-validation" novalidate>
+<form class="needs-validation" novalidate action="validateUser.php" method="post">
     <div class="form-group row ">
         <label for="inputEmail"class="col-sm-2 col-form-label">Email address:</label>
         <div class="col-md-4 mb-3">
-            <input type="email" class="form-control" id="inputEmail" aria-describedby="emailHelp" placeholder="Enter email" required>
+            <input type="email" class="form-control" name="email" id="inputEmail" aria-describedby="emailHelp" placeholder="Enter email" required>
             <div class="valid-feedback">
                 Looks good!
             </div>
@@ -31,7 +31,7 @@
     <div class="form-group row">
         <label for="inputPassword"class="col-sm-2 col-form-label">Password:</label>
         <div class="col-md-4 mb-3">
-            <input type="password" class="form-control" id="inputPassword" placeholder="Password" required>
+            <input type="password" class="form-control" name="password" id="inputPassword" placeholder="Password" required>
             <div class="valid-feedback">
                 Looks good!
             </div>
@@ -40,12 +40,13 @@
             </div>
         </div>
     </div>
-    <button class="btn btn-primary btn-lg" type="submit">Login</button>
+    <button class="btn btn-primary btn-lg" name="submit" type="submit">Login</button>
 <div class = "mt-2 text-center">
     <a href="newOwner.html" class="btn btn-primary btn-lg" role="button">New Owner Registration</a>
     <a href="newVisitor.html" class="btn btn-primary btn-lg" role="button">New Visitor Registration</a>
 </div>
 </form>
+</body>
 
 <!-- Optional JavaScript -->
 <script>
@@ -72,5 +73,6 @@
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-</body>
+
+
 </html>
