@@ -4,6 +4,7 @@ require_once 'config.php';
 if ( isset( $_POST['submit'] ) ) {
     $username = $_POST["email"];
     $password = $_POST["password"];
+    $password = md5($password);
     $success = "Matching in DB";
     $failure = "The username/password combination was incorrect";
     echo "$username";

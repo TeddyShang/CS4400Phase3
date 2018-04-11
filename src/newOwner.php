@@ -95,9 +95,16 @@
             <div class="col-md-4 mb-3" id = "animal">
                 <select class="custom-select custom-select mb-3" required>
                     <option value="">Open this select menu</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
+                    <?php
+                    // Include config file
+                    require_once 'config.php';
+                    $sql = "SELECT Name FROM FarmItem WHERE (Type='ANIMAL' AND IsApproved = 1)";
+                    $result = $conn->query($sql);
+                    while ($row = mysqli_fetch_array($result)) {
+                    echo "<option>" . $row{'Name'} . "</option>";
+                    }
+
+                    ?>
                 </select>
             </div>
         </div>
@@ -106,9 +113,17 @@
             <div class="col-md-4 mb-3">
                 <select class="custom-select custom-select mb-3" required>
                     <option value="">Open this select menu</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
+                    <?php
+                    // Include config file
+                    require_once 'config.php';
+                    $sql = "SELECT Name FROM FarmItem WHERE ((Type='FRUIT' OR TYPE='FLOWER' OR TYPE = 'VEGETABLE' OR TYPE='NUT') AND IsAPPROVED = 1)";
+                    $result = $conn->query($sql);
+                    while ($row = mysqli_fetch_array($result)) {
+                        echo "<option>" . $row{'Name'} . "</option>";
+                    }
+                    $conn ->close();
+
+                    ?>
                 </select>
             </div>
         </div>
