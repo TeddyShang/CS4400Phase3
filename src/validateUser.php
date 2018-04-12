@@ -7,12 +7,18 @@ if ( isset( $_POST['submit'] ) ) {
     $password = md5($password);
     $success = "Matching in DB";
     $failure = "The username/password combination was incorrect";
-    echo "$username";
-    echo "$password";
-    $sql = "SELECT Email, Password From User Where (Email='$username' AND Password='$password')";
+    $sql = "SELECT Email, Password, UserType From User Where (Email='$username' AND Password='$password')";
     $result = $conn->query($sql);
     if ($result->num_rows > 0) {
-        echo "<script type='text/javascript'>alert('$success');</script>";
+        $row = mysqli_fetch_row($result);
+        if ($row[2] == "ADMIN") {
+            echo "<script>window.location = 'adminHome.php'</script>";
+        } elseif($row[2] == "VISITOR") {
+            echo "<script>window.location = 'visitorHome.php'</script>";
+        } else {
+            echo "<script>window.location = 'ownerHome.php'</script>";
+        }
+
     } else {
         echo "<script type='text/javascript'>alert('$failure');</script>";
         echo "<script>window.location = 'Login.html'</script>";
