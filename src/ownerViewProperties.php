@@ -10,8 +10,7 @@ require_once 'config.php';
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 </head>
 <body>
-<h1>Welcome <?php echo $_SESSION['userID']?></h1>
-<h1>Your Properties:</h1>
+<h1>All Other Valid Properties:</h1>
 <table id="ownerProperties" class="table table-striped table-bordered" style="width:100%">
     <thead>
     <tr>
@@ -30,60 +29,60 @@ require_once 'config.php';
     </tr>
     </thead>
     <tbody>
-<?php
-$ownerName= $_SESSION['userID'];
-$sql = "SELECT Name, Street, City, Zip, Size, PropertyType, isPublic, isCommercial, ID, ApprovedBy FROM Property WHERE Owner = '$ownerName'";
-$result = $conn->query($sql);
+    <?php
+    $ownerName= $_SESSION['userID'];
+    $sql = "SELECT Name, Street, City, Zip, Size, PropertyType, isPublic, isCommercial, ID, ApprovedBy FROM Property WHERE Owner != '$ownerName'";
+    $result = $conn->query($sql);
 
-while($row = mysqli_fetch_array($result)) {
-    $publicBool;
-    $commercialBool;
-    $id = $row['ID'];
-    $idDigits = sprintf('%05d', $row['ID']);
-    if ($row['isPublic'] == 1) {
-        $publicBool = "True";
-    } else {
-        $publicBool = "False";
-    }
-    if ($row['isCommercial'] == 1) {
-        $commercialBool = "True";
-    } else {
-        $commercialBool = "False";
-    }
-    $isValid;
-    if ($row['ApprovedBy'] == "NULL") {
-        $isValid = "False";
-    } else {
-        $isValid = "True";
-    }
-    $visitorStatsSQL = "SELECT COUNT(PropertyID), AVG(Rating) FROM Visit WHERE PropertyID = '$id'";
-    $statsResult = $conn->query($visitorStatsSQL);
-    $stats = mysqli_fetch_array($statsResult);
-    $visits = $stats[0];
-    $rating = $stats[1];
-    if (!($rating>0)) {
-        $rating = "N/A";
+    while($row = mysqli_fetch_array($result)) {
+        $publicBool;
+        $commercialBool;
+        $id = $row['ID'];
+        $idDigits = sprintf('%05d', $row['ID']);
+        if ($row['isPublic'] == 1) {
+            $publicBool = "True";
+        } else {
+            $publicBool = "False";
+        }
+        if ($row['isCommercial'] == 1) {
+            $commercialBool = "True";
+        } else {
+            $commercialBool = "False";
+        }
+        $isValid;
+        if ($row['ApprovedBy'] == "NULL") {
+            $isValid = "False";
+        } else {
+            $isValid = "True";
+        }
+        $visitorStatsSQL = "SELECT COUNT(PropertyID), AVG(Rating) FROM Visit WHERE PropertyID = '$id'";
+        $statsResult = $conn->query($visitorStatsSQL);
+        $stats = mysqli_fetch_array($statsResult);
+        $visits = $stats[0];
+        $rating = $stats[1];
+        if (!($rating>0)) {
+            $rating = "N/A";
+        }
+
+        echo "<tr>";
+        echo "<td>" .$row['Name'] . "</td>";
+        echo "<td>" .$row['Street'] . "</td>";
+        echo "<td>" .$row['City'] . "</td>";
+        echo "<td>" .$row['Zip'] . "</td>";
+        echo "<td>" .$row['Size'] . "</td>";
+        echo "<td>" .$row['PropertyType'] . "</td>";
+        echo "<td> $publicBool </td>";
+        echo "<td> $commercialBool</td>";
+        echo "<td>$idDigits</td>";
+        echo "<td>$isValid</td>";
+        echo "<td>$visits</td>";
+        echo "<td>$rating</td>";
+        echo "</tr>";
     }
 
-    echo "<tr>";
-    echo "<td>" .$row['Name'] . "</td>";
-    echo "<td>" .$row['Street'] . "</td>";
-    echo "<td>" .$row['City'] . "</td>";
-    echo "<td>" .$row['Zip'] . "</td>";
-    echo "<td>" .$row['Size'] . "</td>";
-    echo "<td>" .$row['PropertyType'] . "</td>";
-    echo "<td> $publicBool </td>";
-    echo "<td> $commercialBool</td>";
-    echo "<td>$idDigits</td>";
-    echo "<td>$isValid</td>";
-    echo "<td>$visits</td>";
-    echo "<td>$rating</td>";
-    echo "</tr>";
-}
 
-
-$conn ->close();
-?>
+    $conn ->close();
+    ?>
     </tbody>
     <tfoot>
     <tr>
@@ -104,10 +103,11 @@ $conn ->close();
     </tfoot>
 </table>
 <div class = "mt-2 text-center">
-    <a href="ownerManage.php" class="btn btn-primary btn-lg" role="button">Manage Property</a>
-    <a href="ownerAdd.php" class="btn btn-primary btn-lg" role="button">Add Property</a>
-    <a href="ownerViewProperties.php" class="btn btn-primary btn-lg" role="button">View Other Properties</a>
-    <a href="logOut.php" class="btn btn-primary btn-lg" role="button">Log Out</a>
+    <form action = "ownerViewDetails.php" method ="post">
+        <button name="others"class="btn btn-primary btn-lg" id="others" value="">View Property Details</button>
+    </form>
+    <br>
+    <a href="ownerHome.php" class="btn btn-primary btn-lg" role="button">Back</a>
 </div>
 
 <script type="text/javascript" charset="utf8" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
@@ -124,7 +124,6 @@ $conn ->close();
         var table = $('#ownerProperties').DataTable();
 
         //What is clicked
-
         $('#ownerProperties tbody').on( 'click', 'tr', function () {
             if ( $(this).hasClass('selected') ) {
                 $(this).removeClass('selected');
@@ -134,7 +133,15 @@ $conn ->close();
                 $(this).addClass('selected');
             }
         } );
-
+        //Get info from selected row
+        $('#others').click( function () {
+            //table.row('.selected').remove().draw( false );
+            var data = table.row('.selected').data();
+            var id = data[0];
+            var button = document.getElementById("others");
+            button.value = id;
+            //alert(id);
+        } );
 
         // Apply the search
         table.columns().every( function () {

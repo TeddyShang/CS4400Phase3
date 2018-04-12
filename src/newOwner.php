@@ -1,4 +1,4 @@
-<!--TODO check if email and username are unique, hash password, create account in DB blcok entries based on select-->
+<!--TODO check if email and username are unique, hash password, create account in DB blcok entries based on select, block crops based on propertyType-->
 <!doctype html>
 <html lang="en">
 <head>
