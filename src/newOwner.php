@@ -110,13 +110,40 @@
         </div>
         <div class ="form-group row">
             <label class="col-sm-2 col-form-label">Crop*:</label>
-            <div class="col-md-4 mb-3">
+            <div class="col-md-4 mb-3" id="farm">
                 <select class="custom-select custom-select mb-3" required>
                     <option value="">Open this select menu</option>
                     <?php
                     // Include config file
-                    require_once 'config.php';
                     $sql = "SELECT Name FROM FarmItem WHERE ((Type='FRUIT' OR TYPE='FLOWER' OR TYPE = 'VEGETABLE' OR TYPE='NUT') AND IsAPPROVED = 1)";
+                    $result = $conn->query($sql);
+                    while ($row = mysqli_fetch_array($result)) {
+                        echo "<option>" . $row{'Name'} . "</option>";
+                    }
+
+                    ?>
+                </select>
+            </div>
+            <div class="col-md-4 mb-3" id="orchard">
+                <select class="custom-select custom-select mb-3" required>
+                    <option value="">Open this select menu</option>
+                    <?php
+                    // Include config file
+                    $sql = "SELECT Name FROM FarmItem WHERE ((TYPE='FLOWER' OR TYPE = 'VEGETABLE') AND IsAPPROVED = 1)";
+                    $result = $conn->query($sql);
+                    while ($row = mysqli_fetch_array($result)) {
+                        echo "<option>" . $row{'Name'} . "</option>";
+                    }
+
+                    ?>
+                </select>
+            </div>
+            <div class="col-md-4 mb-3" id="garden">
+                <select class="custom-select custom-select mb-3" required>
+                    <option value="">Open this select menu</option>
+                    <?php
+                    // Include config file
+                    $sql = "SELECT Name FROM FarmItem WHERE ((Type='FRUIT'OR TYPE='NUT') AND IsAPPROVED = 1)";
                     $result = $conn->query($sql);
                     while ($row = mysqli_fetch_array($result)) {
                         echo "<option>" . $row{'Name'} . "</option>";
@@ -175,6 +202,7 @@ form.classList.add('was-validated');
 })();
 </script>
 <script>
+    dontshow("0");
     function check(input) {
         if (input.value != document.getElementById('inputPassword').value) {
             input.setCustomValidity('Password Must be Matching.');
@@ -184,12 +212,28 @@ form.classList.add('was-validated');
         }
     }
     function dontshow(sel) {
+        var w = document.getElementById('farm');
         var x = document.getElementById('animal');
+        var y = document.getElementById('orchard');
+        var z = document.getElementById('garden');
         if (sel.value != "2") {
             x.style.display = "none";
+            w.style.display = "none";
         } else {
             x.style.display = "block";
+            w.style.display = "block";
         }
+        if (sel.value != "1") {
+            y.style.display = "none";
+        } else {
+            y.style.display = "block";
+        }
+        if (sel.value != "3") {
+            z.style.display = "none";
+        } else {
+            z.style.display = "block";
+        }
+
     }
 </script>
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
