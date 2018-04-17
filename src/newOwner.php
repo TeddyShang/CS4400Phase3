@@ -19,7 +19,7 @@
         <div class="form-group row">
             <label for="inputEmail" class="col-sm-2 col-form-label">Email address*:</label>
             <div class="col-md-4 mb-3">
-                <input type="email" required class="form-control" id="inputEmail" aria-describedby="emailHelp" placeholder="Enter email">
+                <input type="email" required class="form-control" id="inputEmail" aria-describedby="emailHelp" placeholder="Enter email" pattern ="[^@]+@[^@]+\.[a-zA-Z]{2,}>
                 <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
             </div>
         </div>
