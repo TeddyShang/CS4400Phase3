@@ -15,25 +15,25 @@
 <div class ="text-center">
     <h1>ATL Gardens, Farms, and Orchards</h1>
     <h2>New Owner Registration</h2>
-    <form class = "needs-validation" novalidate>
+    <form class = "needs-validation" novalidate action="createOwner.php" method="post">
         <div class="form-group row">
             <label for="inputEmail" class="col-sm-2 col-form-label">Email address*:</label>
             <div class="col-md-4 mb-3">
-                <input type="email" required class="form-control" id="inputEmail" aria-describedby="emailHelp" placeholder="Enter email" pattern ="[^@]+@[^@]+\.[a-zA-Z]{2,}>
+                <input type="email" required class="form-control" name= "email" id="inputEmail" aria-describedby="emailHelp" placeholder="Enter email" pattern ="[^@]+@[^@]+\.[a-zA-Z]{2,}">
                 <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
             </div>
         </div>
         <div class="form-group row">
             <label for="inputUsername"class="col-sm-2 col-form-label" >Username*:</label>
             <div class="col-md-4 mb-3">
-                <input type="text" required class="form-control" id="inputUsername" placeholder="Username">
+                <input type="text" required class="form-control" name ="username" id="inputUsername" placeholder="Username">
                 <small id="usernameHelp" class="form-text text-muted">Create a custom username!</small>
             </div>
         </div>
         <div class="form-group row">
             <label for="inputPassword"class="col-sm-2 col-form-label">Password*:</label>
             <div class="col-md-4 mb-3">
-                <input type="password" required class="form-control" id="inputPassword" placeholder="Password"  input pattern=".{8,}">
+                <input type="password" required class="form-control" name="password" id="inputPassword" placeholder="Password"  input pattern=".{8,}">
                 <small id="passwordHelp" class="form-text text-muted">Password must be at least 8 characters</small>
             </div>
         </div>
@@ -47,42 +47,42 @@
         <div class="form-group row">
             <label for="propertyName"class="col-sm-2 col-form-label">Property Name*:</label>
             <div class="col-md-4 mb-3">
-                <input type="text" required class="form-control" id="propertyName" placeholder="Property Name">
+                <input type="text" required class="form-control" name = "propname" id="propertyName" placeholder="Property Name">
                 <small id="propertyNameHelp" class="form-text text-muted">What is the name of your property?</small>
             </div>
         </div>
         <div class="form-group row">
             <label for="streetAddress"class="col-sm-2 col-form-label">Street Address*:</label>
             <div class="col-md-4 mb-3">
-                <input type="text" required class="form-control" id="streetAddress" placeholder="Street Address">
+                <input type="text" required class="form-control" name ="street" id="streetAddress" placeholder="Street Address">
                 <small id="addressHelp" class="form-text text-muted">Enter the property's address</small>
             </div>
         </div>
         <div class="form-group row">
             <label for="city"class="col-sm-2 col-form-label">City*:</label>
             <div class="col-md-4 mb-3">
-                <input type="text" required class="form-control" id="city" placeholder="City Name">
+                <input type="text" required class="form-control" name ="city" id="city" placeholder="City Name">
                 <small id="cityHelp" class="form-text text-muted">Enter the city of your property</small>
             </div>
         </div>
         <div class="form-group row">
             <label for="zip"class="col-sm-2 col-form-label">Zip*:</label>
             <div class="col-md-4 mb-3">
-                <input type="number" required class="form-control" id="zip" placeholder="Zip Code" min="10000" max="99999">
+                <input type="number" required class="form-control" name = "zip" id="zip" placeholder="Zip Code" min="10000" max="99999">
                 <small id="zipHelp" class="form-text text-muted">Enter the 5 digit zipcode of your property</small>
             </div>
         </div>
         <div class="form-group row">
             <label for="acres" class="col-sm-2 col-form-label">Acres*:</label>
             <div class="col-md-4 mb-3">
-                <input type="number" required class="form-control" id="acres" placeholder="Number of Acres" min="0">
+                <input type="number" required class="form-control" name ="acres" id="acres" placeholder="Number of Acres" min="0">
                 <small id="acreHelp" class="form-text text-muted">Enter your property's acreage</small>
             </div>
         </div>
         <div class ="form-group row">
             <label class="col-sm-2 col-form-label">Property Type*:</label>
             <div class="col-md-4 mb-3">
-            <select class="custom-select custom-select mb-3" required onchange="dontshow(this)" id = "property">
+            <select class="custom-select custom-select mb-3"  name = "propType" required onchange="dontshow(this)" id = "property">
                 <option value="">Open this select menu</option>
                 <option value="1">Orchard</option>
                 <option value="2">Farm</option>
@@ -93,8 +93,7 @@
         <div class ="form-group row">
             <label class="col-sm-2 col-form-label">Animal*:</label>
             <div class="col-md-4 mb-3" id = "animal">
-                <select class="custom-select custom-select mb-3" required>
-                    <option value="">Open this select menu</option>
+                <select class="custom-select custom-select mb-3" name="animal" required>
                     <?php
                     // Include config file
                     require_once 'config.php';
@@ -111,8 +110,7 @@
         <div class ="form-group row">
             <label class="col-sm-2 col-form-label">Crop*:</label>
             <div class="col-md-4 mb-3" id="farm">
-                <select class="custom-select custom-select mb-3" required>
-                    <option value="">Open this select menu</option>
+                <select class="custom-select custom-select mb-3" name="allCrops" required>
                     <?php
                     // Include config file
                     $sql = "SELECT Name FROM FarmItem WHERE ((Type='FRUIT' OR TYPE='FLOWER' OR TYPE = 'VEGETABLE' OR TYPE='NUT') AND IsAPPROVED = 1)";
@@ -125,8 +123,7 @@
                 </select>
             </div>
             <div class="col-md-4 mb-3" id="orchard">
-                <select class="custom-select custom-select mb-3" required>
-                    <option value="">Open this select menu</option>
+                <select class="custom-select custom-select mb-3" name="garden"required>
                     <?php
                     // Include config file
                     $sql = "SELECT Name FROM FarmItem WHERE ((TYPE='FLOWER' OR TYPE = 'VEGETABLE') AND IsAPPROVED = 1)";
@@ -139,8 +136,7 @@
                 </select>
             </div>
             <div class="col-md-4 mb-3" id="garden">
-                <select class="custom-select custom-select mb-3" required>
-                    <option value="">Open this select menu</option>
+                <select class="custom-select custom-select mb-3" name ="orchard" required>
                     <?php
                     // Include config file
                     $sql = "SELECT Name FROM FarmItem WHERE ((Type='FRUIT'OR TYPE='NUT') AND IsAPPROVED = 1)";
@@ -157,7 +153,7 @@
         <div class ="form-group row">
             <label class="col-sm-2 col-form-label">Public?*:</label>
             <div class="col-md-4 mb-3">
-                <select class="custom-select custom-select mb-3" required>
+                <select class="custom-select custom-select mb-3" name="public" required>
                     <option value="">Open this select menu</option>
                     <option value="1">Yes</option>
                     <option value="2">No</option>
@@ -167,14 +163,14 @@
         <div class ="form-group row">
             <label class="col-sm-2 col-form-label">Commercial?*:</label>
             <div class="col-md-4 mb-3">
-                <select class="custom-select custom-select- mb-3" required>
+                <select class="custom-select custom-select- mb-3" name = "commercial" required>
                     <option value="">Open this select menu</option>>
                     <option value="1">Yes</option>
                     <option value="2">No</option>
                 </select>
             </div>
         </div>
-    <button class="btn btn-primary btn-lg" type="submit">Register Owner</button>
+    <button class="btn btn-primary btn-lg" name ="submit" type="submit">Register Owner</button>
     <a href="Login.html" class="btn btn-primary btn-lg" role="button">Cancel</a>
     </form>
 </div>
