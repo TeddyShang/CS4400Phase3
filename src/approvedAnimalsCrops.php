@@ -66,7 +66,7 @@ require_once 'config.php';
 </div>
 <div class = "mt-2 text-center">
     <form action = "deleteFarmItem.php" method ="post">
-        <button name="others"class="btn btn-primary btn-lg" id="others" value="">Delete Selction</button>
+        <button name="others1"class="btn btn-primary btn-lg" id="others1" value="">Delete Selection</button>
     </form>
     <br>
     <a href="adminHome.php" class="btn btn-primary btn-lg" role="button">Back</a>
@@ -96,11 +96,11 @@ require_once 'config.php';
             }
         } );
         //Get info from selected row
-        $('#others').click( function () {
+        $('#others1').click( function () {
             //table.row('.selected').remove().draw( false );
             var data = table.row('.selected').data();
             var id = data[0];
-            var button = document.getElementById("others");
+            var button = document.getElementById("others1");
             button.value = id;
             //alert(id);
         } );
