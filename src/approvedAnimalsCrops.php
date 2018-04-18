@@ -49,16 +49,16 @@ require_once 'config.php';
         <div class="col-md-4 mb-3">
             <select class="custom-select custom-select mb-3"  name = "cropType" required id = "cropType">
                 <option value="">Open this select menu</option>
-                <option value="1">Animal</option>
-                <option value="2">Fruit</option>
-                <option value="3">Vegetable</option>
-                <option value="4">Flower</option>
+                <option value="ANIMAL">Animal</option>
+                <option value="FRUIT">Fruit</option>
+                <option value="VEGETABLE">Vegetable</option>
+                <option value="FLOWER">Flower</option>
             </select>
         </div>
         <div class="form-group row">
             <label for="cropName"class="col-sm-2 col-form-label">Crop Name*:</label>
             <div class="col-md-4 mb-3">
-                <input type="text" required class="form-control" id="confirmPassword" placeholder="Enter Name"">
+                <input type="text" required class="form-control" name = "cropName" id="cropName" placeholder="Enter Name"">
             </div>
         </div>
         <button class="btn btn-primary btn-lg" name ="submit" type="submit">Add to Approved List</button>
