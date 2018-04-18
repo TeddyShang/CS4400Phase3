@@ -1,3 +1,7 @@
+<?php
+session_start();
+require_once 'config.php';
+?>
 <!doctype html>
 <html lang="en">
 <head>
@@ -11,6 +15,14 @@
     <title>AdminHome</title>
 </head>
 <body>
-<h1>Welcome</h1>
-<h2>Your Properties</h2>
+<h1>Welcome <?php echo $_SESSION['userID']?></h1>
+<div class = "mt-2 text-center">
+    <a href="visitorList.php" class="btn btn-primary btn-lg" role="button">View Visitor List</a>
+    <a href="ownerList.php" class="btn btn-primary btn-lg" role="button">View Owners List</a>
+    <a href="confirmedPropertyList.php" class="btn btn-primary btn-lg" role="button">View Confirmed Properties</a>
+    <a href="unconfirmedPropertyList.php" class="btn btn-primary btn-lg" role="button">View Unconfirmed Properties</a>
+    <a href="approvedAnimalsCrops.php" class="btn btn-primary btn-lg" role="button">View Approved Animals and crops</a>
+    <a href="pendingAnimalsCrops.php" class="btn btn-primary btn-lg" role="button">View Pending Animals and Crops</a>
+    <a href="logOut.php" class="btn btn-primary btn-lg" role="button">Log Out</a>
+</div>
 </body>

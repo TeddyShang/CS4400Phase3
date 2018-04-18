@@ -43,7 +43,6 @@ if ( isset( $_POST['submit'] ) ) {
     }
 
     if ($r2->num_rows > 0 || $r1->num_rows > 0 || $r3->num_rows >0 ) {
-        echo $failure;
         echo "<script type='text/javascript'>alert('$failure');</script>";
         echo "<script>window.location = 'newOwner.php'</script>";
 
@@ -73,9 +72,6 @@ if ( isset( $_POST['submit'] ) ) {
         } else {
             $public = 0;
         }
-        echo $propType;
-        echo $public;
-        echo $commercial;
         $createProperty = "INSERT INTO  `cs4400_team_1`.`Property` (`ID` ,`Name` ,`Size` ,`IsCommercial` ,`IsPublic` ,`Street` ,`City` ,`Zip` ,`PropertyType` ,`Owner` ,`ApprovedBy`)
         VALUES ('$idValue',  '$propname',  '$acres',  '$commercial',  '$public',  '$street',  '$city',  '$zip',  '$propType',  '$username',  'NULL')";
         $conn->query($createProperty);
