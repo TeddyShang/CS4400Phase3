@@ -30,7 +30,7 @@ if ($row['isCommercial'] == 1) {
     $commercialBool = "False";
 }
 $isValid;
-if ($row['ApprovedBy'] == "NULL") {
+if ($row['ApprovedBy'] == NULL) {
     $isValid = "False";
 } else {
     $isValid = "True";

@@ -73,7 +73,7 @@ if ( isset( $_POST['submit'] ) ) {
             $public = 0;
         }
         $createProperty = "INSERT INTO  `cs4400_team_1`.`Property` (`ID` ,`Name` ,`Size` ,`IsCommercial` ,`IsPublic` ,`Street` ,`City` ,`Zip` ,`PropertyType` ,`Owner` ,`ApprovedBy`)
-        VALUES ('$idValue',  '$propname',  '$acres',  '$commercial',  '$public',  '$street',  '$city',  '$zip',  '$propType',  '$username',  'NULL')";
+        VALUES ('$idValue',  '$propname',  '$acres',  '$commercial',  '$public',  '$street',  '$city',  '$zip',  '$propType',  '$username',  NULL)";
         $conn->query($createProperty);
         $desiredAnimal = "";
         $desiredCrop = "";

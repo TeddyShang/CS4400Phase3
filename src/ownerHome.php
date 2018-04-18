@@ -51,7 +51,7 @@ while($row = mysqli_fetch_array($result)) {
         $commercialBool = "False";
     }
     $isValid;
-    if ($row['ApprovedBy'] == "NULL") {
+    if ($row['ApprovedBy'] == NULL) {
         $isValid = "False";
     } else {
         $isValid = "True";

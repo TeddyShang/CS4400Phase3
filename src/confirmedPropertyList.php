@@ -28,7 +28,7 @@ require_once 'config.php';
     </thead>
     <tbody>
     <?php
-    $sql = "SELECT Name, Street, City, Zip, Size, PropertyType, isPublic, isCommercial, ID, ApprovedBy, Owner FROM Property WHERE ApprovedBy != 'NULL'";
+    $sql = "SELECT Name, Street, City, Zip, Size, PropertyType, isPublic, isCommercial, ID, ApprovedBy, Owner FROM Property WHERE ApprovedBy IS NOT NULL";
     $result = $conn->query($sql);
 
     while($row = mysqli_fetch_array($result)) {
