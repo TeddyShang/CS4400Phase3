@@ -12,6 +12,26 @@ require_once 'config.php';
 <body>
 <h1>Welcome <?php echo $_SESSION['userID']?></h1>
 <h1>All public, validated properties:</h1>
+<table border="0" cellspacing="5" cellpadding="5">
+    <tbody><tr>
+        <td>Minimum Visits</td>
+        <td><input type="text" id="min" name="min"></td>
+    </tr>
+    <tr>
+        <td>Maximum Visits</td>
+        <td><input type="text" id="max" name="max"></td>
+    </tr>
+    </tbody></table>
+<table border="0" cellspacing="5" cellpadding="5">
+    <tbody><tr>
+        <td>Minimum Rating</td>
+        <td><input type="text" id="min1" name="min1"></td>
+    </tr>
+    <tr>
+        <td>Maximum Rating</td>
+        <td><input type="text" id="max1" name="max1"></td>
+    </tr>
+    </tbody></table>
 <table id="validProperties" class="table table-striped table-bordered" style="width:100%">
     <thead>
     <tr>
@@ -116,6 +136,39 @@ require_once 'config.php';
 <script type="text/javascript" charset="utf8" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.js"></script>
 <script>
+    $.fn.dataTable.ext.search.push(
+        function( settings, data, dataIndex ) {
+            var min = parseInt( $('#min').val(), 10 );
+            var max = parseInt( $('#max').val(), 10 );
+            var age = parseFloat( data[10] ) || 0; // use data for the visit column
+
+            if ( ( isNaN( min ) && isNaN( max ) ) ||
+                ( isNaN( min ) && age <= max ) ||
+                ( min <= age   && isNaN( max ) ) ||
+                ( min <= age   && age <= max ) )
+            {
+                return true;
+            }
+            return false;
+        }
+    );
+    $.fn.dataTable.ext.search.push(
+        function( settings, data, dataIndex ) {
+            var min = parseFloat( $('#min1').val(), 10 );
+            var max = parseFloat( $('#max1').val(), 10 );
+            var age = parseFloat( data[11] ) || 0; // use data for the ratings column
+
+            if ( ( isNaN( min ) && isNaN( max ) ) ||
+                ( isNaN( min ) && age <= max ) ||
+                ( min <= age   && isNaN( max ) ) ||
+                ( min <= age   && age <= max ) )
+            {
+                return true;
+            }
+            return false;
+        }
+    );
+
     $(document).ready(function() {
         // Setup - add a text input to each footer cell
         $('#validProperties tfoot th').each( function () {
@@ -125,6 +178,14 @@ require_once 'config.php';
 
         // DataTable
         var table = $('#validProperties').DataTable();
+        $('#min, #max').keyup( function() {
+            table.draw();
+        } );
+        var table = $('#validProperties').DataTable();
+        $('#min1, #max1').keyup( function() {
+            table.draw();
+        } );
+
 
         //What is clicked
         $('#validProperties tbody').on( 'click', 'tr', function () {
