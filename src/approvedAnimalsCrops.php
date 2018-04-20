@@ -45,7 +45,7 @@ require_once 'config.php';
 <div class ="text-center">
 <form class = "needs-validation" novalidate action="addCrop.php" method="post">
     <div class ="form-group row">
-        <label class="col-sm-2 col-form-label">Property Type*:</label>
+        <label class="col-sm-2 col-form-label">Add Crop*:</label>
         <div class="col-md-4 mb-3">
             <select class="custom-select custom-select mb-3"  name = "cropType" required id = "cropType">
                 <option value="">Open this select menu</option>

@@ -104,7 +104,10 @@ $conn ->close();
     </tfoot>
 </table>
 <div class = "mt-2 text-center">
-    <a href="ownerManage.php" class="btn btn-primary btn-lg" role="button">Manage Property</a>
+    <form action = "ownerManage.php" method ="post">
+        <button name="others"class="btn btn-primary btn-lg" id="others" value="">Manage Selected Property</button>
+    </form>
+    <br>
     <a href="ownerAdd.php" class="btn btn-primary btn-lg" role="button">Add Property</a>
     <a href="ownerViewProperties.php" class="btn btn-primary btn-lg" role="button">View Other Properties</a>
     <a href="logOut.php" class="btn btn-primary btn-lg" role="button">Log Out</a>
@@ -125,6 +128,7 @@ $conn ->close();
 
         //What is clicked
 
+
         $('#ownerProperties tbody').on( 'click', 'tr', function () {
             if ( $(this).hasClass('selected') ) {
                 $(this).removeClass('selected');
@@ -133,6 +137,14 @@ $conn ->close();
                 table.$('tr.selected').removeClass('selected');
                 $(this).addClass('selected');
             }
+        } );
+        $('#others').click( function () {
+            //table.row('.selected').remove().draw( false );
+            var data = table.row('.selected').data();
+            var id = data[0];
+            var button = document.getElementById("others");
+            button.value = id;
+            //alert(id);
         } );
 
 
