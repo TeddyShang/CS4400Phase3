@@ -45,7 +45,7 @@ require_once 'config.php';
 <div class ="text-center">
 <form class = "needs-validation" novalidate action="addCrop.php" method="post">
     <div class ="form-group row">
-        <label class="col-sm-2 col-form-label">Add Crop*:</label>
+        <label class="col-sm-2 col-form-label">Add Animal/Crop*:</label>
         <div class="col-md-4 mb-3">
             <select class="custom-select custom-select mb-3"  name = "cropType" required id = "cropType">
                 <option value="">Open this select menu</option>
@@ -53,10 +53,11 @@ require_once 'config.php';
                 <option value="FRUIT">Fruit</option>
                 <option value="VEGETABLE">Vegetable</option>
                 <option value="FLOWER">Flower</option>
+                <option value="NUT">Nut</option>
             </select>
         </div>
         <div class="form-group row">
-            <label for="cropName"class="col-sm-2 col-form-label">Crop Name*:</label>
+            <label for="cropName"class="col-sm-2 col-form-label">Animal/Crop Name*:</label>
             <div class="col-md-4 mb-3">
                 <input type="text" required class="form-control" name = "cropName" id="cropName" placeholder="Enter Name"">
             </div>

@@ -132,16 +132,22 @@ if ($row['ApprovedBy'] == NULL) {
             <label class="col-sm-2 col-form-label">Choose Animal to Remove?:</label>
             <div class="col-md-4 mb-3">
                 <select class="custom-select custom-select- mb-3" name = "deleteAnimal">
-                    <option value ="">Open this menu</option>
                     <?php
-                    $cropSQL = "SELECT Name, Type, IsApproved FROM (Has NATURAL JOIN FarmItem) WHERE (PropertyID = '$id' AND Has.ItemName = FarmItem.Name)";
+                    $cropSQL = "SELECT Name, Type, IsApproved FROM (Has NATURAL JOIN FarmItem) WHERE (PropertyID = '$id' AND Has.ItemName = FarmItem.Name AND Type = 'ANIMAL')";
                     $cropResult = $conn->query($cropSQL);
-                    while ($crow = mysqli_fetch_array($cropResult)) {
-                        if ($crow['Type'] == "ANIMAL") {
-                            $cropName = $crow['Name'];
-                            echo "<option value=\"$cropName\">$cropName</option>";
+                    if ($cropResult->num_rows == 1) {
+                        echo "<option value=\"\">Last animal cannot be removed</option>";
+                    }else {
+                        while ($crow = mysqli_fetch_array($cropResult)) {
+                            echo "<option value =\"\">Open this menu</option>";
+                            if ($crow['Type'] == "ANIMAL") {
+                                $cropName = $crow['Name'];
+                                echo "<option value=\"$cropName\">$cropName</option>";
+                            }
                         }
+
                     }
+
                     ?>
                 </select>
             </div>
@@ -150,15 +156,20 @@ if ($row['ApprovedBy'] == NULL) {
             <label class="col-sm-2 col-form-label">Choose Crop to Remove?:</label>
             <div class="col-md-4 mb-3">
                 <select class="custom-select custom-select- mb-3" name = "deleteCrop">
-                    <option value ="">Open this menu</option>
                     <?php
-                    $cropSQL = "SELECT Name, Type, IsApproved FROM (Has NATURAL JOIN FarmItem) WHERE (PropertyID = '$id' AND Has.ItemName = FarmItem.Name)";
+                    $cropSQL = "SELECT Name, Type, IsApproved FROM (Has NATURAL JOIN FarmItem) WHERE (PropertyID = '$id' AND Has.ItemName = FarmItem.Name AND Type != 'ANIMAL')";
                     $cropResult = $conn->query($cropSQL);
-                    while ($crow = mysqli_fetch_array($cropResult)) {
-                        if ($crow['Type'] != "ANIMAL") {
-                            $cropName = $crow['Name'];
-                            echo "<option value=\"$cropName\">$cropName</option>";
+                    if ($cropResult ->num_rows == 1) {
+                        echo "<option value=\"\">Last crop cannot be removed</option>";
+                    } else {
+                        while ($crow = mysqli_fetch_array($cropResult)) {
+                            if ($crow['Type'] != "ANIMAL") {
+                                echo "<option value =\"\">Open this menu</option>";
+                                $cropName = $crow['Name'];
+                                echo "<option value=\"$cropName\">$cropName</option>";
+                            }
                         }
+
                     }
                     ?>
                 </select>

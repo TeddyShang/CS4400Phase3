@@ -88,7 +88,11 @@ echo "ID:   " . $idDigits;
 echo "<br>";
 echo "Crops:   " . $crops;
 echo "<br>";
-echo "Animals:   " . $animals;
+$propType = $row['PropertyType'];
+if ($propType == "FARM") {
+    echo "Animals:   " . $animals;
+
+}
 
 
 ?>
