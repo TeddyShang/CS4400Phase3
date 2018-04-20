@@ -75,7 +75,7 @@
         <div class="form-group row">
             <label for="acres" class="col-sm-2 col-form-label">Acres*:</label>
             <div class="col-md-4 mb-3">
-                <input type="number" required class="form-control" name ="acres" id="acres" placeholder="Number of Acres" min="0">
+                <input type="number" step="any" required class="form-control" name ="acres" id="acres" placeholder="Number of Acres" min="0">
                 <small id="acreHelp" class="form-text text-muted">Enter your property's acreage</small>
             </div>
         </div>
