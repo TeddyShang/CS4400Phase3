@@ -1,6 +1,10 @@
 <?php
 session_start();
 require_once 'config.php';
+if (!isset($_SESSION['userID'])){
+    echo "<script type='text/javascript'>alert('You are not logged in!');</script>";
+    echo "<script>window.location = 'Login.html'</script>";
+}
 ?>
 
 <!doctype html>
