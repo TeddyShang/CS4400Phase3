@@ -142,8 +142,8 @@ if ($row['ApprovedBy'] == NULL) {
                     if ($cropResult->num_rows == 1) {
                         echo "<option value=\"\">Last animal cannot be removed</option>";
                     }else {
+                        echo "<option value =\"\">Open this menu</option>";
                         while ($crow = mysqli_fetch_array($cropResult)) {
-                            echo "<option value =\"\">Open this menu</option>";
                             if ($crow['Type'] == "ANIMAL") {
                                 $cropName = $crow['Name'];
                                 echo "<option value=\"$cropName\">$cropName</option>";
@@ -166,9 +166,9 @@ if ($row['ApprovedBy'] == NULL) {
                     if ($cropResult ->num_rows == 1) {
                         echo "<option value=\"\">Last crop cannot be removed</option>";
                     } else {
+                        echo "<option value =\"\">Open this menu</option>";
                         while ($crow = mysqli_fetch_array($cropResult)) {
                             if ($crow['Type'] != "ANIMAL") {
-                                echo "<option value =\"\">Open this menu</option>";
                                 $cropName = $crow['Name'];
                                 echo "<option value=\"$cropName\">$cropName</option>";
                             }
