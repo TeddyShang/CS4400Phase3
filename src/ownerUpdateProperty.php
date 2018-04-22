@@ -27,7 +27,7 @@ $deleteAnimal = $_POST["deleteAnimal"];
 $deleteCrop = $_POST["deleteCrop"];
 $addAnimal = $_POST["addAnimal"];
 $addCrop = $_POST["addCrop"];
-$message = "Property has been confirmed and updated!";
+$message = "Property change is pending approval";
 $checkPropName = "SELECT * FROM Property WHERE (ID != '$id' AND Name = '$propName')";
 $checkName = $conn ->query($checkPropName);
 $failure = "Cannot change your property name to one that already exists!";
@@ -35,22 +35,23 @@ if($checkName->num_rows > 0) {
     echo "<script type='text/javascript'>alert('$failure');</script>";
     echo "<script>window.location = 'ownerHome.php'</script>";
 } else {
-    $updateProperty = "UPDATE Property SET Name = '$propName', Street = '$address', City ='$city', Zip ='$zip', Size='$acres', IsPublic = '$public', IsCommercial= '$commercial', ApprovedBy = NULL WHERE ID = '$id'";
-    $conn->query($updateProperty);
-    if ($deleteAnimal != "") {
-        $deleteAnimalQ = "DELETE FROM Has WHERE (PropertyID = '$id' AND ItemName = '$deleteAnimal')";
-        $conn->query($deleteAnimalQ);
-    }
-    if ($deleteCrop != "") {
-        $deleteCropQ = "DELETE FROM Has WHERE (PropertyID = '$id' AND ItemName = '$deleteCrop')";
-        $conn->query($deleteCropQ);
-    }
-    if ($addAnimal != "") {
-        $addAnimalQ = "INSERT INTO  `cs4400_team_1`.`Has` (`PropertyID` ,`ItemName`)
-    VALUES ('$id','$addAnimal')";
-        $conn->query($addAnimalQ);
+    $checkIfChanged = "SELECT * FROM Property WHERE (ID = '$id' AND Name = '$propName' AND IsCommercial='$commercial' AND IsPublic='$public' AND Street='$address' AND City ='$city' AND Zip ='$zip')";
+    $checkChange = $conn->query($checkIfChanged);
 
+    if ($checkChange -> num_rows == 0) {
+        $deleteVisits = "DELETE FROM Visit WHERE PropertyID = '$id'";
+        $conn->query($deleteVisits);
+        $updateProperty = "UPDATE Property SET Name = '$propName', Street = '$address', City ='$city', Zip ='$zip', Size='$acres', IsPublic = '$public', IsCommercial= '$commercial', ApprovedBy =NULL WHERE ID = '$id'";
+        $conn->query($updateProperty);
     }
+    $row = mysqli_fetch_array($checkChange);
+    if (round($acres, 2) != round($row['Size'],2)) {
+        $deleteVisits = "DELETE FROM Visit WHERE PropertyID = '$id'";
+        $conn->query($deleteVisits);
+        $updateProperty = "UPDATE Property SET Name = '$propName', Street = '$address', City ='$city', Zip ='$zip', Size='$acres', IsPublic = '$public', IsCommercial= '$commercial', ApprovedBy =NULL WHERE ID = '$id'";
+        $conn->query($updateProperty);
+    }
+
     if ($addCrop != "") {
         $addCropQ = "INSERT INTO  `cs4400_team_1`.`Has` (`PropertyID` ,`ItemName`)
     VALUES ('$id','$addCrop')";
