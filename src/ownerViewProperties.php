@@ -47,7 +47,6 @@ require_once 'config.php';
         <th>isPublic</th>
         <th>isCommerical</th>
         <th>ID</th>
-        <th>isValid</th>
         <th>Visits</th>
         <th>Average Rating</th>
     </tr>
@@ -55,7 +54,7 @@ require_once 'config.php';
     <tbody>
     <?php
     $ownerName= $_SESSION['userID'];
-    $sql = "SELECT Name, Street, City, Zip, Size, PropertyType, isPublic, isCommercial, ID, ApprovedBy FROM Property WHERE Owner != '$ownerName'";
+    $sql = "SELECT Name, Street, City, Zip, Size, PropertyType, isPublic, isCommercial, ID, ApprovedBy FROM Property WHERE (Owner != '$ownerName' AND ApprovedBy IS NOT NULL)";
     $result = $conn->query($sql);
 
     while($row = mysqli_fetch_array($result)) {
@@ -72,12 +71,6 @@ require_once 'config.php';
             $commercialBool = "True";
         } else {
             $commercialBool = "False";
-        }
-        $isValid;
-        if ($row['ApprovedBy'] == NULL) {
-            $isValid = "False";
-        } else {
-            $isValid = "True";
         }
         $visitorStatsSQL = "SELECT COUNT(PropertyID), AVG(Rating) FROM Visit WHERE PropertyID = '$id'";
         $statsResult = $conn->query($visitorStatsSQL);
@@ -98,7 +91,6 @@ require_once 'config.php';
         echo "<td> $publicBool </td>";
         echo "<td> $commercialBool</td>";
         echo "<td>$idDigits</td>";
-        echo "<td>$isValid</td>";
         echo "<td>$visits</td>";
         echo "<td>$rating</td>";
         echo "</tr>";
@@ -119,7 +111,6 @@ require_once 'config.php';
         <th>isPublic</th>
         <th>isCommerical</th>
         <th>ID</th>
-        <th>isValid</th>
         <th>Visits</th>
         <th>Average Rating</th>
     </tr>
@@ -141,7 +132,7 @@ require_once 'config.php';
         function( settings, data, dataIndex ) {
             var min = parseInt( $('#min').val(), 10 );
             var max = parseInt( $('#max').val(), 10 );
-            var age = parseFloat( data[10] ) || 0; // use data for the visit column
+            var age = parseFloat( data[9] ) || 0; // use data for the visit column
 
             if ( ( isNaN( min ) && isNaN( max ) ) ||
                 ( isNaN( min ) && age <= max ) ||
@@ -157,7 +148,7 @@ require_once 'config.php';
         function( settings, data, dataIndex ) {
             var min = parseFloat( $('#min1').val(), 10 );
             var max = parseFloat( $('#max1').val(), 10 );
-            var age = parseFloat( data[11] ) || 0; // use data for the ratings column
+            var age = parseFloat( data[10] ) || 0; // use data for the ratings column
 
             if ( ( isNaN( min ) && isNaN( max ) ) ||
                 ( isNaN( min ) && age <= max ) ||

@@ -35,15 +35,15 @@ if($checkName->num_rows > 0) {
     echo "<script type='text/javascript'>alert('$failure');</script>";
     echo "<script>window.location.back()</script>";
 } else {
-    $checkIfChanged = "SELECT * FROM Property WHERE (ID = '$id' AND Name = '$propName' AND Size ='$acres' AND IsCommercial='$commercial' AND IsPublic='$public' AND Street='$address' AND ApprovedBy ='$username' AND City ='$city' AND Zip ='$zip')";
+    /*$checkIfChanged = "SELECT * FROM Property WHERE (ID = '$id' AND Name = '$propName' AND Size ='$acres' AND IsCommercial='$commercial' AND IsPublic='$public' AND Street='$address' AND ApprovedBy ='$username' AND City ='$city' AND Zip ='$zip')";
     $checkChange = $conn->query($checkIfChanged);
     if ($checkChange->num_rows == 0) {
         $deleteVisits = "DELETE FROM Visit WHERE PropertyID = '$id'";
         $conn->query($deleteVisits);
-    } else {
-        $updateProperty = "UPDATE Property SET Name = '$propName', Street = '$address', City ='$city', Zip ='$zip', Size='$acres', IsPublic = '$public', IsCommercial= '$commercial', ApprovedBy ='$username' WHERE ID = '$id'";
-        $conn->query($updateProperty);
-    }
+    } else {*/
+
+    $updateProperty = "UPDATE Property SET Name = '$propName', Street = '$address', City ='$city', Zip ='$zip', Size='$acres', IsPublic = '$public', IsCommercial= '$commercial', ApprovedBy ='$username' WHERE ID = '$id'";
+    $conn->query($updateProperty);
     if ($deleteAnimal != "") {
         $deleteAnimalQ = "DELETE FROM Has WHERE (PropertyID = '$id' AND ItemName = '$deleteAnimal')";
         $conn->query($deleteAnimalQ);
@@ -63,7 +63,6 @@ if($checkName->num_rows > 0) {
     VALUES ('$id','$addCrop')";
         $conn->query($addCropQ);
     }
-
     echo "<script type='text/javascript'>alert('$message');</script>";
     echo "<script>window.location = 'adminHome.php'</script>";
 

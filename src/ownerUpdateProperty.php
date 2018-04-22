@@ -33,7 +33,7 @@ $checkName = $conn ->query($checkPropName);
 $failure = "Cannot change your property name to one that already exists!";
 if($checkName->num_rows > 0) {
     echo "<script type='text/javascript'>alert('$failure');</script>";
-    echo "<script>window.location.back()</script>";
+    echo "<script>window.location = 'ownerHome.php'</script>";
 } else {
     $updateProperty = "UPDATE Property SET Name = '$propName', Street = '$address', City ='$city', Zip ='$zip', Size='$acres', IsPublic = '$public', IsCommercial= '$commercial', ApprovedBy = NULL WHERE ID = '$id'";
     $conn->query($updateProperty);

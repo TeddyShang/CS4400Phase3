@@ -104,7 +104,7 @@ if (!isset($_SESSION['userID'])){
                 <select class="custom-select custom-select mb-3" name="garden"required>
                     <?php
                     // Include config file
-                    $sql = "SELECT Name FROM FarmItem WHERE ((TYPE='FLOWER' OR TYPE = 'VEGETABLE') AND IsAPPROVED = 1)";
+                    $sql = "SELECT Name FROM FarmItem WHERE ((TYPE='FRUIT' OR TYPE = 'NUT') AND IsAPPROVED = 1)";
                     $result = $conn->query($sql);
                     while ($row = mysqli_fetch_array($result)) {
                         echo "<option>" . $row{'Name'} . "</option>";
@@ -117,7 +117,7 @@ if (!isset($_SESSION['userID'])){
                 <select class="custom-select custom-select mb-3" name ="orchard" required>
                     <?php
                     // Include config file
-                    $sql = "SELECT Name FROM FarmItem WHERE ((Type='FRUIT'OR TYPE='NUT') AND IsAPPROVED = 1)";
+                    $sql = "SELECT Name FROM FarmItem WHERE ((Type='FLOWER'OR TYPE='VEGETABLE') AND IsAPPROVED = 1)";
                     $result = $conn->query($sql);
                     while ($row = mysqli_fetch_array($result)) {
                         echo "<option>" . $row{'Name'} . "</option>";

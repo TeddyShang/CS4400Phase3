@@ -209,7 +209,7 @@ if ($row['ApprovedBy'] == NULL) {
                     $cropSQL = "SELECT Name, Type, IsApproved FROM FarmItem WHERE  IsApproved = 1";
                     $cropResult = $conn->query($cropSQL);
                     while ($crow = mysqli_fetch_array($cropResult)) {
-                        if($propType = "GARDEN") {
+                        if($propType == "GARDEN") {
                             if ($crow['Type'] == "VEGETABLE" || $crow['Type'] == "FLOWER") {
                                 $cropName = $crow['Name'];
                                 echo "<option value=\"$cropName\">$cropName</option>";
