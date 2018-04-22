@@ -35,12 +35,23 @@ if($checkName->num_rows > 0) {
     echo "<script type='text/javascript'>alert('$failure');</script>";
     echo "<script>window.location.back()</script>";
 } else {
-    /*$checkIfChanged = "SELECT * FROM Property WHERE (ID = '$id' AND Name = '$propName' AND Size ='$acres' AND IsCommercial='$commercial' AND IsPublic='$public' AND Street='$address' AND ApprovedBy ='$username' AND City ='$city' AND Zip ='$zip')";
+    $checkIfChanged = "SELECT * FROM Property WHERE (ID = '$id' AND Name = '$propName' AND IsCommercial='$commercial' AND IsPublic='$public' AND Street='$address' AND City ='$city' AND Zip ='$zip')";
     $checkChange = $conn->query($checkIfChanged);
-    if ($checkChange->num_rows == 0) {
+
+    if ($checkChange -> num_rows == 0) {
         $deleteVisits = "DELETE FROM Visit WHERE PropertyID = '$id'";
         $conn->query($deleteVisits);
-    } else {*/
+        $updateProperty = "UPDATE Property SET Name = '$propName', Street = '$address', City ='$city', Zip ='$zip', Size='$acres', IsPublic = '$public', IsCommercial= '$commercial', ApprovedBy ='$username' WHERE ID = '$id'";
+        $conn->query($updateProperty);
+    }
+    $row = mysqli_fetch_array($checkChange);
+    if (round($acres, 2) != round($row['Size'],2)) {
+        $deleteVisits = "DELETE FROM Visit WHERE PropertyID = '$id'";
+        $conn->query($deleteVisits);
+        $updateProperty = "UPDATE Property SET Name = '$propName', Street = '$address', City ='$city', Zip ='$zip', Size='$acres', IsPublic = '$public', IsCommercial= '$commercial', ApprovedBy ='$username' WHERE ID = '$id'";
+        $conn->query($updateProperty);
+    }
+
 
     $updateProperty = "UPDATE Property SET Name = '$propName', Street = '$address', City ='$city', Zip ='$zip', Size='$acres', IsPublic = '$public', IsCommercial= '$commercial', ApprovedBy ='$username' WHERE ID = '$id'";
     $conn->query($updateProperty);

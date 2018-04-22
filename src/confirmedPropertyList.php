@@ -27,7 +27,8 @@ require_once 'config.php';
         <th>isPublic</th>
         <th>isCommerical</th>
         <th>ID</th>
-        <th>Owner</th>
+        <th>Verified By</th>
+        <th>Rating</th>
     </tr>
     </thead>
     <tbody>
@@ -50,6 +51,14 @@ require_once 'config.php';
         } else {
             $commercialBool = "False";
         }
+        $visitorStatsSQL = "SELECT COUNT(PropertyID), AVG(Rating) FROM Visit WHERE PropertyID = '$id'";
+        $statsResult = $conn->query($visitorStatsSQL);
+        $stats = mysqli_fetch_array($statsResult);
+        $visits = $stats[0];
+        $rating = $stats[1];
+        if (!($rating>0)) {
+            $rating = "N/A";
+        }
         echo "<tr>";
         echo "<td>" .$row['Name'] . "</td>";
         echo "<td>" .$row['Street'] . "</td>";
@@ -60,7 +69,8 @@ require_once 'config.php';
         echo "<td> $publicBool </td>";
         echo "<td> $commercialBool</td>";
         echo "<td>$idDigits</td>";
-        echo "<td>" .$row['Owner'] . "</td>";
+        echo "<td>" .$row['ApprovedBy'] . "</td>";
+        echo "<td>$rating</td>";
         echo "</tr>";
     }
 
@@ -79,7 +89,8 @@ require_once 'config.php';
         <th>isPublic</th>
         <th>isCommerical</th>
         <th>ID</th>
-        <th>Owner</th>
+        <th>Approved By</th>
+        <th>Rating</th>
     </tr>
 
     </tfoot>
